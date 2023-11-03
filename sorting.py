@@ -10,16 +10,6 @@ def random_list(size:int,max:int)->list:
         list.append(random.randint(0,max))
     return list
 
-class metriikka:
-    aihtoja=0
-    vertailuja=0
-    def __init__(self, vaihtoja, vertailuja):
-        self.vaihtoja=vaihtoja
-        self.vertailuja=vertailuja
-    def tulosta_metriikka():
-        print("Operaatiot:")
-        print("Vaihtoja:")
-
 def insertion_sort(list:list)->list:
     helper=0
 
