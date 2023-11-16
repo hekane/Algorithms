@@ -134,8 +134,9 @@ input_size=10000
 maximum_value_of_random_integer_in_list=10000
 
 ## Executions
-test_wrapper(input_size,maximum_value_of_random_integer_in_list,bubble_sort, False)
-test_wrapper(input_size,maximum_value_of_random_integer_in_list,bubble_sort_flagged, False)
-test_wrapper(input_size,maximum_value_of_random_integer_in_list,insertion_sort, False)
+#test_wrapper(input_size,maximum_value_of_random_integer_in_list,bubble_sort, False)
+#test_wrapper(input_size,maximum_value_of_random_integer_in_list,bubble_sort_flagged, False)
+#test_wrapper(input_size,maximum_value_of_random_integer_in_list,insertion_sort, False)
 test_wrapper(input_size,maximum_value_of_random_integer_in_list,merge_sort, False)
+test_wrapper(input_size,maximum_value_of_random_integer_in_list, counting_sort, False)
 
