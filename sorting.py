@@ -189,6 +189,23 @@ def timer(start_time,end_time)->str:
     else:
         print(Fore.MAGENTA,"Finished in",duration/1000000000,"s")    
 
+def counting_sort(list:list[int]):
+    c=[0]*(max(list)+1)
+    b=[0]*len(list)
+    for i in range(len(list)):
+        c[list[i]]+=1
+    #print("Occurences of indexes in list:",c)
+    for i in range(1,len(c)):
+        c[i]+=c[i-1]
+    #print("Cumulative occurences in list:",c)
+    for i in range(len(c)):
+        c[i]-=1
+    #print("0-index corrected vector c:",c)
+    for i in range(len(list)-1,-1,-1):
+        b[c[list[i]]]=list[i]
+        c[list[i]]-=1
+    for i in range(len(list)):
+        list[i]=b[i]
 
 ### Execution area. Includes example code. Alter for your conveniece ###
 
@@ -198,6 +215,7 @@ input_size=200000
 maximum_value_of_random_integer_in_list=10000
 
 ## Executions
+<<<<<<< HEAD
 """test_wrapper(input_size,maximum_value_of_random_integer_in_list,bubble_sort, False)
 test_wrapper(input_size,maximum_value_of_random_integer_in_list,bubble_sort_flagged, False)"""
 #test_wrapper(input_size,maximum_value_of_random_integer_in_list,insertion_sort, False)
@@ -206,4 +224,11 @@ test_wrapper(input_size,maximum_value_of_random_integer_in_list,merge_sort, Fals
 #test_wrapper(input_size,maximum_value_of_random_integer_in_list,my_experimental_deuces_sort2, False) #No good O(n^2)
 test_wrapper(input_size,maximum_value_of_random_integer_in_list,my_magnitude_merge_sort, False)
 print("Ended")
+=======
+#test_wrapper(input_size,maximum_value_of_random_integer_in_list,bubble_sort, False)
+#test_wrapper(input_size,maximum_value_of_random_integer_in_list,bubble_sort_flagged, False)
+#test_wrapper(input_size,maximum_value_of_random_integer_in_list,insertion_sort, False)
+test_wrapper(input_size,maximum_value_of_random_integer_in_list,merge_sort, False)
+test_wrapper(input_size,maximum_value_of_random_integer_in_list, counting_sort, False)
+>>>>>>> 156b3b4ab31462d3391652092f4e4e62a7808989
 
