@@ -85,9 +85,28 @@ def ajastin(aloitusaika,lopetusaika)->str:
     else:
         print("kesto oli",kesto/1000000000,"s")    
 
+def counting_sort(list:list[int]):
+    c=[0]*(max(list)+1)
+    b=[0]*len(list)
+    for i in range(len(list)):
+        c[list[i]]+=1
+    #print("Occurences of indexes in list:",c)
+    for i in range(1,len(c)):
+        c[i]+=c[i-1]
+    #print("Cumulative occurences in list:",c)
+    for i in range(len(c)):
+        c[i]-=1
+    #print("0-index corrected vector c:",c)
+    for i in range(len(list)-1,-1,-1):
+        b[c[list[i]]]=list[i]
+        c[list[i]]-=1
+    for i in range(len(list)):
+        list[i]=b[i]
 
 ### Testialue
-
-#test_wrapper(10000,1000,kuplalajittelu,False)
-#test_wrapper(10000,1000,liputettu_kuplalajittelu,False)
-test_wrapper(1000,1000,lisays_lajittelu,False)
+input=100000
+max_int=100000
+#test_wrapper(input,max_int,kuplalajittelu,False)
+#test_wrapper(input,max_int,liputettu_kuplalajittelu,False)
+#test_wrapper(input,max_int,lisays_lajittelu,False)
+test_wrapper(input,max_int,counting_sort, False)
