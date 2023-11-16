@@ -76,7 +76,88 @@ def _merge(a:list,b:list)->list:
     if right<len(b):
         merged+=b[right:]
     return merged
-        
+
+
+### My own experiments
+def my_experimental_deuces_sort(list:list)->list:
+    list_of_lists=[]
+    counter=0
+    doubles=0
+    lenlist=len(list)
+    while counter<lenlist:
+        list_of_lists.append(_flip(list[counter:counter+2]))
+        doubles+=1
+        counter+=2
+    if len(list)%2==1:
+        list_of_lists.append(list[doubles*2:])
+    sorted=[list_of_lists[0][0],list_of_lists[0][1]]
+    lenlist_of_list=len(list_of_lists)
+    for i in range(1,lenlist_of_list):
+        sorted=_add_list_of_two(sorted, list_of_lists[i])
+    return sorted
+
+
+def my_experimental_deuces_sort2(list:list)->list:
+    list_of_lists=[]
+    counter=0
+    doubles=0
+    lenlist=len(list)
+    while counter<lenlist:
+        list_of_lists.append(_flip(list[counter:counter+2]))
+        doubles+=1
+        counter+=2
+    if len(list)%2==1:
+        list_of_lists.append(list[doubles*2:])
+    sorted=_add_list_of_two(list_of_lists[0], list_of_lists[1])
+    lenlist_of_list=len(list_of_lists)
+    index=1
+    counter=2
+    while 2**index<=lenlist_of_list/2:
+        for i in range(2**index,2**index*2):
+            sorted=_add_list_of_two(sorted, list_of_lists[i])
+        index+=1
+    return sorted
+
+def _flip(list:list)->list:
+    bigger=0
+    if len(list)==1:return list
+    if list[0]>list[1]:
+        bigger=list[0]
+        list[0]=list[1]
+        list[1]=bigger
+    return list
+
+def _add_list_of_two(list:list, list_of_two:list)->list:
+    index=0
+    index2=0
+    sorted=[]
+    lenlist=len(list)
+    threshold=len(list_of_two)
+    while index<lenlist and index2<threshold:
+        if list[index]<list_of_two[index2]:
+            sorted.append(list[index])
+            index+=1
+        else:
+            sorted.append(list_of_two[index2])
+            index2+=1
+        if index2==threshold:
+            sorted+=list[index:]
+            break
+        if index==lenlist:
+            sorted+=list_of_two[index2:]
+    return sorted
+
+def my_magnitude_merge_sort(list:list)->list:
+    midpoint=int(len(list)/2)
+    left=list[0:midpoint]
+    right=list[midpoint:]
+    if len(left)>2:
+        left=merge_sort(left)
+    if len(right)>2:
+        right=merge_sort(right)
+    return _merge(left, right)
+
+### end of my experiments
 
 #Wrapper function for running the algorithms
 def test_wrapper(list_size, max_integer,algorithm,print_results=True):
@@ -112,13 +193,17 @@ def timer(start_time,end_time)->str:
 ### Execution area. Includes example code. Alter for your conveniece ###
 
 # The size of the list to be sorted
-input_size=10000
+input_size=200000
 # The maximum value of any given integer in the list
 maximum_value_of_random_integer_in_list=10000
 
 ## Executions
-test_wrapper(input_size,maximum_value_of_random_integer_in_list,bubble_sort, False)
-test_wrapper(input_size,maximum_value_of_random_integer_in_list,bubble_sort_flagged, False)
-test_wrapper(input_size,maximum_value_of_random_integer_in_list,insertion_sort, False)
+"""test_wrapper(input_size,maximum_value_of_random_integer_in_list,bubble_sort, False)
+test_wrapper(input_size,maximum_value_of_random_integer_in_list,bubble_sort_flagged, False)"""
+#test_wrapper(input_size,maximum_value_of_random_integer_in_list,insertion_sort, False)
 test_wrapper(input_size,maximum_value_of_random_integer_in_list,merge_sort, False)
+#test_wrapper(input_size,maximum_value_of_random_integer_in_list,my_experimental_deuces_sort, False) #No good O(n^2)
+#test_wrapper(input_size,maximum_value_of_random_integer_in_list,my_experimental_deuces_sort2, False) #No good O(n^2)
+test_wrapper(input_size,maximum_value_of_random_integer_in_list,my_magnitude_merge_sort, False)
+print("Ended")
 
