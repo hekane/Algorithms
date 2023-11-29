@@ -207,28 +207,49 @@ def counting_sort(list:list[int]):
     for i in range(len(list)):
         list[i]=b[i]
 
+#Quick sort needs a wrapper because it's signature
+def quick_sort_wrapper(list):
+    p=0
+    r=len(list)-1
+    quick_sort(list, p,r)
+
+def quick_sort(A:list,p:int,r:int):
+    if p<r:
+        q=partition(A,p,r)
+        quick_sort(A,p,q-1)
+        quick_sort(A,q+1,r)
+
+#Helper for quick sort
+def partition(A:list,p:int,r:int)->int:
+    x=A[r]
+    i=p-1
+    for j in range(p,r):
+        if A[j]<=x:
+            i+=1
+            A[j],A[i]=A[i],A[j]
+    A[i+1],A[r]=A[r],A[i+1]
+    return i+1
+
 ### Execution area. Includes example code. Alter for your conveniece ###
 
 # The size of the list to be sorted
-input_size=200000
+input_size=1000000
 # The maximum value of any given integer in the list
 maximum_value_of_random_integer_in_list=10000
 
 ## Executions
-<<<<<<< HEAD
 """test_wrapper(input_size,maximum_value_of_random_integer_in_list,bubble_sort, False)
 test_wrapper(input_size,maximum_value_of_random_integer_in_list,bubble_sort_flagged, False)"""
 #test_wrapper(input_size,maximum_value_of_random_integer_in_list,insertion_sort, False)
 test_wrapper(input_size,maximum_value_of_random_integer_in_list,merge_sort, False)
 #test_wrapper(input_size,maximum_value_of_random_integer_in_list,my_experimental_deuces_sort, False) #No good O(n^2)
 #test_wrapper(input_size,maximum_value_of_random_integer_in_list,my_experimental_deuces_sort2, False) #No good O(n^2)
-test_wrapper(input_size,maximum_value_of_random_integer_in_list,my_magnitude_merge_sort, False)
-print("Ended")
-=======
+#test_wrapper(input_size,maximum_value_of_random_integer_in_list,my_magnitude_merge_sort, False)
+
 #test_wrapper(input_size,maximum_value_of_random_integer_in_list,bubble_sort, False)
 #test_wrapper(input_size,maximum_value_of_random_integer_in_list,bubble_sort_flagged, False)
 #test_wrapper(input_size,maximum_value_of_random_integer_in_list,insertion_sort, False)
-test_wrapper(input_size,maximum_value_of_random_integer_in_list,merge_sort, False)
 test_wrapper(input_size,maximum_value_of_random_integer_in_list, counting_sort, False)
->>>>>>> 156b3b4ab31462d3391652092f4e4e62a7808989
+test_wrapper(input_size,maximum_value_of_random_integer_in_list, quick_sort_wrapper, False)
 
+print("Ended")
